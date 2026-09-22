@@ -28,6 +28,9 @@ RUN mkdir -p /usr/local/tomcat/webapps/uploads/evidencias \
              /usr/local/tomcat/webapps/uploads/documentos && \
     chmod -R 755 /usr/local/tomcat/webapps/uploads
 
+# Railway asigna PORT dinámicamente; 8080 queda como fallback local.
+ENV PORT=8080
+
 # Variables de entorno de base de datos (sobreescribir en docker-compose)
 ENV DB_HOST=mysql
 ENV DB_PORT=3306
@@ -38,5 +41,5 @@ ENV DB_PASSWORD=hiportafolio_pass
 # Exponer puerto 8080
 EXPOSE 8080
 
-# Iniciar Tomcat
-CMD ["catalina.sh", "run"]
+# Iniciar Tomcat en el puerto asignado por Railway.
+CMD ["sh", "-c", "sed -i \"s/port=\\\"8080\\\"/port=\\\"${PORT:-8080}\\\"/\" \"$CATALINA_HOME/conf/server.xml\" && exec catalina.sh run"]

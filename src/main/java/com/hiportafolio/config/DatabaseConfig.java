@@ -48,11 +48,11 @@ public class DatabaseConfig {
      * Lee las variables de entorno (priorizando Railway) y construye la URL de conexión.
      */
     static {
-        DB_HOST     = getEnvOrFallback("MYSQLHOST", "DB_HOST", "localhost");
-        DB_PORT     = getEnvOrFallback("MYSQLPORT", "DB_PORT", "3306");
-        DB_NAME     = getEnvOrFallback("MYSQLDATABASE", "DB_NAME", "railway");
-        DB_USER     = getEnvOrFallback("MYSQLUSER", "DB_USER", "root");
-        DB_PASSWORD = getEnvOrFallback("MYSQLPASSWORD", "DB_PASSWORD", "");
+        DB_HOST     = getEnvOrFallback("DB_HOST", "MYSQLHOST", "localhost");
+        DB_PORT     = getEnvOrFallback("DB_PORT", "MYSQLPORT", "3306");
+        DB_NAME     = getEnvOrFallback("DB_NAME", "MYSQLDATABASE", "railway");
+        DB_USER     = getEnvOrFallback("DB_USER", "MYSQLUSER", "root");
+        DB_PASSWORD = getEnvOrFallback("DB_PASSWORD", "MYSQLPASSWORD", "");
 
         // Parámetros de conexión: UTF-8, zona horaria, SSL desactivado para desarrollo
         JDBC_URL = String.format(
