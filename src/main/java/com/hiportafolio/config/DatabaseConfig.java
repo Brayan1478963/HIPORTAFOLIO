@@ -52,11 +52,11 @@ public class DatabaseConfig {
      * Lee las variables de entorno y construye la URL de conexión.
      */
     static {
-        DB_HOST     = getEnvOrDefault("DB_HOST",     "localhost");
-        DB_PORT     = getEnvOrDefault("DB_PORT",     "3307");
-        DB_NAME     = getEnvOrDefault("DB_NAME",     "hiportafolio");
-        DB_USER     = getEnvOrDefault("DB_USER",     "root");
-        DB_PASSWORD = getEnvOrDefault("DB_PASSWORD", "");
+        DB_HOST     = getEnvOrFallback("DB_HOST",     "MYSQLHOST",     "localhost");
+        DB_PORT     = getEnvOrFallback("DB_PORT",     "MYSQLPORT",     "3307");
+        DB_NAME     = getEnvOrFallback("DB_NAME",     "MYSQLDATABASE", "hiportafolio");
+        DB_USER     = getEnvOrFallback("DB_USER",     "MYSQLUSER",     "root");
+        DB_PASSWORD = getEnvOrFallback("DB_PASSWORD", "MYSQLPASSWORD", "");
 
         // Parámetros de conexión: UTF-8, zona horaria, SSL desactivado para desarrollo
         JDBC_URL = String.format(
@@ -158,6 +158,13 @@ public class DatabaseConfig {
             return defaultValue;
         }
         return value.trim();
+    }
+
+    private static String getEnvOrFallback(String preferredVar, String fallbackVar,
+                                           String defaultValue) {
+        String preferred = System.getenv(preferredVar);
+        if (preferred != null && !preferred.trim().isEmpty()) return preferred.trim();
+        return getEnvOrDefault(fallbackVar, defaultValue);
     }
 
     // Getters de solo lectura (sin exponer contraseña)
