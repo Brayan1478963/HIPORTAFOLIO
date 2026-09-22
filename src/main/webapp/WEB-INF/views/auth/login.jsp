@@ -99,14 +99,17 @@
   <div class="login-demo">
     <div class="login-demo-title"><i class="bi bi-info-circle me-1"></i>CUENTAS DE PRUEBA</div>
     <div class="login-demo-grid">
+      <!-- Primer usuario: Falso / De adorno (credenciales incorrectas) -->
       <div class="login-demo-item"
-           data-email="admin@hiportafolio.com"
-           data-pass="Admin123!"
-           role="button" tabindex="0" title="Usar credenciales admin">
+           data-email="invitado@hiportafolio.com"
+           data-pass="ClaveIncorrecta999"
+           role="button" tabindex="0" title="Credenciales de prueba">
         <span class="role">ADMIN</span>
-        <span class="cred">admin@hiportafolio.com</span>
-        <span class="cred" style="color:rgba(154,168,160,0.6)">Admin123!</span>
+        <span class="cred">invitado@hiportafolio.com</span>
+        <span class="cred" style="color:rgba(154,168,160,0.6)">ClaveIncorrecta999</span>
       </div>
+      
+      <!-- Segundo usuario: Funciona con normalidad -->
       <div class="login-demo-item"
            data-email="usuario@hiportafolio.com"
            data-pass="Usuario123!"
