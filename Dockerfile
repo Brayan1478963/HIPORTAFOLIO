@@ -3,6 +3,14 @@
 # Imagen: Tomcat 10.1 con Java 17
 # =============================================
 
+FROM maven:3.9-eclipse-temurin-17 AS build
+
+WORKDIR /build
+COPY pom.xml .
+RUN mvn dependency:go-offline -B
+COPY src ./src
+RUN mvn clean package -DskipTests -B
+
 FROM tomcat:10.1-jdk17-temurin
 
 LABEL maintainer="HiPortafolio - UPLA Arquitectura de Software"
@@ -11,8 +19,8 @@ LABEL description="Sistema Web de Portafolio Académico"
 # Eliminar aplicaciones por defecto de Tomcat
 RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Copiar el WAR generado por Maven
-COPY target/HiPortafolio.war /usr/local/tomcat/webapps/ROOT.war
+# Copiar el WAR generado en la etapa de compilación
+COPY --from=build /build/target/HiPortafolio.war /usr/local/tomcat/webapps/ROOT.war
 
 # Crear directorio de uploads con permisos
 RUN mkdir -p /usr/local/tomcat/webapps/uploads/evidencias \
