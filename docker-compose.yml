@@ -1,0 +1,62 @@
+version: '3.8'
+
+# =============================================
+# HiPortafolio - docker-compose.yml
+# Orquesta: App Tomcat + MySQL
+# =============================================
+
+services:
+
+  # ---- Base de datos MySQL ----
+  mysql:
+    image: mysql:8.0
+    container_name: hiportafolio-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: hiportafolio
+      MYSQL_USER: hiportafolio_user
+      MYSQL_PASSWORD: hiportafolio_pass
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/database.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - hiportafolio-net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot_password"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ---- Aplicación Java/Tomcat ----
+  app:
+    build: .
+    container_name: hiportafolio-app
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: hiportafolio
+      DB_USER: hiportafolio_user
+      DB_PASSWORD: hiportafolio_pass
+    volumes:
+      - uploads_data:/usr/local/tomcat/webapps/uploads
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - hiportafolio-net
+
+volumes:
+  mysql_data:
+    driver: local
+  uploads_data:
+    driver: local
+
+networks:
+  hiportafolio-net:
+    driver: bridge

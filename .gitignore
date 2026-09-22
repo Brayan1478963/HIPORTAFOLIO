@@ -1,0 +1,105 @@
+# =============================================
+# HiPortafolio - .gitignore
+# Java Maven Web Project
+# =============================================
+
+# ---- Maven ----
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# ---- Clases compiladas ----
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+
+# ---- Logs ----
+logs/
+*.log
+*.log.*
+build.log
+
+# ---- Archivos subidos por usuarios (no versionar) ----
+src/main/webapp/uploads/evidencias/*
+src/main/webapp/uploads/proyectos/*
+src/main/webapp/uploads/documentos/*
+!src/main/webapp/uploads/evidencias/.gitkeep
+!src/main/webapp/uploads/proyectos/.gitkeep
+!src/main/webapp/uploads/documentos/.gitkeep
+
+# ---- IDEs ----
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# Eclipse
+.classpath
+.project
+.settings/
+bin/
+.factorypath
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# VS Code
+.vscode/
+
+# ---- Sistema Operativo ----
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Mac
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Linux
+*~
+
+# ---- Variables de entorno y credenciales (NUNCA versionar) ----
+.env
+.env.local
+.env.*.local
+*.properties.local
+application-local.properties
+db.properties
+credentials.json
+secrets.json
+*.p12
+*.jks
+*.keystore
+
+# ---- Docker (archivos locales) ----
+docker-compose.override.yml
+.docker/
+
+# ---- Archivos temporales ----
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+.#*
+
+# ---- Reportes de pruebas ----
+surefire-reports/
+failsafe-reports/

@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+         https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+         version="6.0">
+
+    <display-name>HiPortafolio</display-name>
+    <description>Sistema Web de Portafolio Académico Personal - UPLA</description>
+
+    <!-- ================================================
+         CONFIGURACIÓN DE SESIÓN
+         ================================================ -->
+    <session-config>
+        <session-timeout>30</session-timeout>
+        <cookie-config>
+            <http-only>true</http-only>
+            <secure>false</secure>
+        </cookie-config>
+    </session-config>
+
+    <!-- ================================================
+         PÁGINA DE BIENVENIDA
+         ================================================ -->
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <!-- ================================================
+         FILTROS
+         ================================================ -->
+
+    <!-- Filtro de codificación UTF-8 (aplica a todo) -->
+    <filter>
+        <filter-name>EncodingFilter</filter-name>
+        <filter-class>com.hiportafolio.filter.EncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>EncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!-- Filtro de autenticación (rutas protegidas) -->
+    <filter>
+        <filter-name>AuthenticationFilter</filter-name>
+        <filter-class>com.hiportafolio.filter.AuthenticationFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthenticationFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AuthenticationFilter</filter-name>
+        <url-pattern>/usuario/*</url-pattern>
+    </filter-mapping>
+
+    <!-- Filtro de administrador (solo ADMIN) -->
+    <filter>
+        <filter-name>AdminFilter</filter-name>
+        <filter-class>com.hiportafolio.filter.AdminFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
+
+    <!-- ================================================
+         SERVLETS - AUTENTICACIÓN
+         ================================================ -->
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>com.hiportafolio.controller.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>com.hiportafolio.controller.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+
+    <!-- ================================================
+         SERVLETS - PANEL ADMINISTRATIVO
+         ================================================ -->
+    <servlet>
+        <servlet-name>DashboardServlet</servlet-name>
+        <servlet-class>com.hiportafolio.controller.DashboardServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DashboardServlet</servlet-name>
+        <url-pattern>/admin/dashboard</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UsuarioServlet</servlet-name>
+        <servlet-class>com.hiportafolio.controller.UsuarioServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UsuarioServlet</servlet-name>
+        <url-pattern>/admin/usuarios</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UnidadAdminServlet</servlet-name>
+        <servlet-class>com.hiportafolio.controller.UnidadServlet</servlet-class>
+        <init-param>
+            <param-name>mode</param-name>
+            <param-value>admin</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UnidadAdminServlet</servlet-name>
+        <url-pattern>/admin/unidades</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SemanaAdminServlet</servlet-name>
+        <servlet-class>com.hiportafolio.controller.SemanaServlet</servlet-class>
+        <init-param>
+            <param-name>mode</param-name>
+            <param-value>admin</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SemanaAdminServlet</servlet-name>
+        <url-pattern>/admin/semanas</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ContenidoAdminServlet</servlet-name>
+        <servlet-class>com.hiportafolio.controller.ContenidoServlet</servlet-class>
+        <init-param>
+            <param-name>mode</param-name>
+            <param-value>admin</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ContenidoAdminServlet</servlet-name>
+        <url-pattern>/admin/contenidos</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EvidenciaAdminServlet</servlet-name>
+        <servlet-class>com.hiportafolio.controller.EvidenciaServlet</servlet-class>
+        <init-param>
+            <param-name>mode</param-name>
+            <param-value>admin</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EvidenciaAdminServlet</servlet-name>
+        <url-pattern>/admin/evidencias</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ProyectoAdminServlet</servlet-name>
+        <servlet-class>com.hiportafolio.controller.ProyectoServlet</servlet-class>
+        <init-param>
+            <param-name>mode</param-name>
+            <param-value>admin</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProyectoAdminServlet</servlet-name>
+        <url-pattern>/admin/proyectos</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>TecnologiaAdminServlet</servlet-name>
+        <servlet-class>com.hiportafolio.controller.TecnologiaServlet</servlet-class>
+        <init-param>
+            <param-name>mode</param-name>
+            <param-value>admin</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TecnologiaAdminServlet</servlet-name>
+        <url-pattern>/admin/tecnologias</url-pattern>
+    </servlet-mapping>
+
+    <!-- ================================================
+         SERVLETS - GESTIÓN DE ARCHIVOS
+         ================================================ -->
+    <servlet>
+        <servlet-name>ArchivoServlet</servlet-name>
+        <servlet-class>com.hiportafolio.controller.ArchivoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ArchivoServlet</servlet-name>
+        <url-pattern>/admin/archivos</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>VisualizarArchivoServlet</servlet-name>
+        <servlet-class>com.hiportafolio.controller.VisualizarArchivoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>VisualizarArchivoServlet</servlet-name>
+        <url-pattern>/archivos/ver</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DescargarArchivoServlet</servlet-name>
+        <servlet-class>com.hiportafolio.controller.DescargarArchivoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DescargarArchivoServlet</servlet-name>
+        <url-pattern>/archivos/descargar</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EliminarArchivoServlet</servlet-name>
+        <servlet-class>com.hiportafolio.controller.EliminarArchivoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EliminarArchivoServlet</servlet-name>
+        <url-pattern>/admin/archivos/eliminar</url-pattern>
+    </servlet-mapping>
+
+    <!-- ================================================
+         SERVLETS - PORTAFOLIO PÚBLICO
+         ================================================ -->
+    <servlet>
+        <servlet-name>PortafolioServlet</servlet-name>
+        <servlet-class>com.hiportafolio.controller.PortafolioServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PortafolioServlet</servlet-name>
+        <url-pattern>/portafolio</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UnidadPublicServlet</servlet-name>
+        <servlet-class>com.hiportafolio.controller.UnidadServlet</servlet-class>
+        <init-param>
+            <param-name>mode</param-name>
+            <param-value>public</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UnidadPublicServlet</servlet-name>
+        <url-pattern>/unidades</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SemanaPublicServlet</servlet-name>
+        <servlet-class>com.hiportafolio.controller.SemanaServlet</servlet-class>
+        <init-param>
+            <param-name>mode</param-name>
+            <param-value>public</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SemanaPublicServlet</servlet-name>
+        <url-pattern>/semanas</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ProyectoPublicServlet</servlet-name>
+        <servlet-class>com.hiportafolio.controller.ProyectoServlet</servlet-class>
+        <init-param>
+            <param-name>mode</param-name>
+            <param-value>public</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProyectoPublicServlet</servlet-name>
+        <url-pattern>/proyectos</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>TecnologiaPublicServlet</servlet-name>
+        <servlet-class>com.hiportafolio.controller.TecnologiaServlet</servlet-class>
+        <init-param>
+            <param-name>mode</param-name>
+            <param-value>public</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TecnologiaPublicServlet</servlet-name>
+        <url-pattern>/tecnologias</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EvidenciaPublicServlet</servlet-name>
+        <servlet-class>com.hiportafolio.controller.EvidenciaServlet</servlet-class>
+        <init-param>
+            <param-name>mode</param-name>
+            <param-value>public</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EvidenciaPublicServlet</servlet-name>
+        <url-pattern>/evidencias</url-pattern>
+    </servlet-mapping>
+
+    <!-- ================================================
+         MANEJO DE ERRORES HTTP
+         ================================================ -->
+    <error-page>
+        <error-code>403</error-code>
+        <location>/WEB-INF/views/error/403.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/views/error/404.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/WEB-INF/views/error/500.jsp</location>
+    </error-page>
+    <error-page>
+        <exception-type>java.lang.Exception</exception-type>
+        <location>/WEB-INF/views/error/500.jsp</location>
+    </error-page>
+
+    <!-- ================================================
+         PARÁMETROS DE CONTEXTO (configuración global)
+         ================================================ -->
+    <context-param>
+        <param-name>app.name</param-name>
+        <param-value>HiPortafolio</param-value>
+    </context-param>
+    <context-param>
+        <param-name>app.version</param-name>
+        <param-value>1.0.0</param-value>
+    </context-param>
+    <context-param>
+        <param-name>upload.max.size</param-name>
+        <param-value>10485760</param-value>
+    </context-param>
+
+</web-app>
