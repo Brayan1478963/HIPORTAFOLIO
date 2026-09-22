@@ -52,11 +52,11 @@ public class DatabaseConfig {
      * Lee las variables de entorno y construye la URL de conexión.
      */
     static {
-        DB_HOST     = getEnvOrFallback("DB_HOST",     "MYSQLHOST",     "localhost");
-        DB_PORT     = getEnvOrFallback("DB_PORT",     "MYSQLPORT",     "3307");
-        DB_NAME     = getEnvOrFallback("DB_NAME",     "MYSQLDATABASE", "hiportafolio");
-        DB_USER     = getEnvOrFallback("DB_USER",     "MYSQLUSER",     "root");
-        DB_PASSWORD = getEnvOrFallback("DB_PASSWORD", "MYSQLPASSWORD", "");
+        DB_HOST     = getEnvOrFallback("MYSQLHOST",     "DB_HOST",     "localhost");
+        DB_PORT     = getEnvOrFallback("MYSQLPORT",     "DB_PORT",     "3307");
+        DB_NAME     = getEnvOrFallback("MYSQLDATABASE", "DB_NAME",     "hiportafolio");
+        DB_USER     = getEnvOrFallback("MYSQLUSER",     "DB_USER",     "root");
+        DB_PASSWORD = getEnvOrFallback("MYSQLPASSWORD", "DB_PASSWORD", "");
 
         // Parámetros de conexión: UTF-8, zona horaria, SSL desactivado para desarrollo
         JDBC_URL = String.format(
