@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 public class DatabaseConfig {
 
     private static final Logger LOGGER = Logger.getLogger(DatabaseConfig.class.getName());
-    private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
+    private static final String JDBC_DRIVER = "org.postgresql.Driver";
 
     private static final String DB_HOST;
     private static final String DB_PORT;
@@ -23,24 +23,22 @@ public class DatabaseConfig {
     private static DatabaseConfig instance;
 
     static {
-        DB_HOST     = cleanConfigValue(getEnvOrFallback("DB_HOST", "MYSQLHOST", "localhost"), "DB_HOST", "MYSQLHOST");
-        DB_PORT     = cleanConfigValue(getEnvOrFallback("DB_PORT", "MYSQLPORT", "3306"), "DB_PORT", "MYSQLPORT");
-        DB_NAME     = cleanConfigValue(getEnvOrFallback("DB_NAME", "MYSQLDATABASE", "railway"), "DB_NAME", "MYSQLDATABASE");
-        DB_USER     = cleanConfigValue(getEnvOrFallback("DB_USER", "MYSQLUSER", "root"), "DB_USER", "MYSQLUSER");
-        DB_PASSWORD = cleanConfigValue(getEnvOrFallback("DB_PASSWORD", "MYSQLPASSWORD", ""), "DB_PASSWORD", "MYSQLPASSWORD");
+        DB_HOST     = cleanConfigValue(getEnvOrFallback("DB_HOST", "PGHOST", "localhost"), "DB_HOST", "PGHOST");
+        DB_PORT     = cleanConfigValue(getEnvOrFallback("DB_PORT", "PGPORT", "5432"), "DB_PORT", "PGPORT");
+        DB_NAME     = cleanConfigValue(getEnvOrFallback("DB_NAME", "PGDATABASE", "hiportafolio"), "DB_NAME", "PGDATABASE");
+        DB_USER     = cleanConfigValue(getEnvOrFallback("DB_USER", "PGUSER", "postgres"), "DB_USER", "PGUSER");
+        DB_PASSWORD = cleanConfigValue(getEnvOrFallback("DB_PASSWORD", "PGPASSWORD", ""), "DB_PASSWORD", "PGPASSWORD");
 
         JDBC_URL = String.format(
-            "jdbc:mysql://%s:%s/%s?useUnicode=true&characterEncoding=UTF-8" +
-            "&useSSL=false&serverTimezone=America/Lima&allowPublicKeyRetrieval=true" +
-            "&autoReconnect=true",
+            "jdbc:postgresql://%s:%s/%s?currentSchema=public",
             DB_HOST, DB_PORT, DB_NAME
         );
 
         try {
             Class.forName(JDBC_DRIVER);
-            LOGGER.info("Driver MySQL cargado correctamente.");
+            LOGGER.info("Driver PostgreSQL cargado correctamente.");
         } catch (ClassNotFoundException e) {
-            LOGGER.log(Level.SEVERE, "No se pudo cargar el driver MySQL: " + e.getMessage(), e);
+            LOGGER.log(Level.SEVERE, "No se pudo cargar el driver PostgreSQL: " + e.getMessage(), e);
         }
     }
 
@@ -61,8 +59,8 @@ public class DatabaseConfig {
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Error al conectar con la base de datos: " + e.getMessage(), e);
             throw new DatabaseException(
-                "No se pudo establecer conexión con la base de datos. " +
-                "Verifique que MySQL esté activo y las credenciales sean correctas.",
+                "No se pudo establecer conexión con la base de datos PostgreSQL. " +
+                "Verifique que las credenciales y el servicio estén activos.",
                 e
             );
         }
