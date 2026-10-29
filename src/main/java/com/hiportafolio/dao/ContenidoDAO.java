@@ -29,13 +29,13 @@ public class ContenidoDAO {
         "INNER JOIN semanas s ON c.id_semana = s.id_semana " +
         "ORDER BY c.id_semana ASC, c.orden ASC";
 
-    private static final String SQL_LISTAR_POR_SEMANA =
-        "SELECT c.id_contenido, c.id_semana, c.titulo, c.descripcion, c.contenido, " +
-        "       c.aprendizaje, c.reflexion, c.referencias, c.orden, c.estado, " +
-        "       c.fecha_creacion, c.fecha_actualizacion, s.titulo AS titulo_semana " +
+   private static final String SQL_LISTAR_POR_SEMANA =
+        "SELECT c.id_contenido, c.id_semana, c.titulo, " +
+        "       c.tipo, c.url_recurso, c.orden, " +
+        "       s.titulo AS titulo_semana " +
         "FROM contenidos c " +
         "INNER JOIN semanas s ON c.id_semana = s.id_semana " +
-        "WHERE c.id_semana = ? AND c.estado = 1 " +
+        "WHERE c.id_semana = ? " +
         "ORDER BY c.orden ASC";
 
     private static final String SQL_BUSCAR_POR_ID =
