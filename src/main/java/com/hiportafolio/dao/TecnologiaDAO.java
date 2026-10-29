@@ -28,13 +28,14 @@ public class TecnologiaDAO {
         "LEFT JOIN categorias c ON t.id_categoria = c.id_categoria " +
         "ORDER BY t.orden ASC, t.nombre ASC";
 
-    private static final String SQL_LISTAR_ACTIVAS =
-        "SELECT t.id_tecnologia, t.id_categoria, t.nombre, t.descripcion, " +
-        "       t.icono, t.nivel, t.estado, t.orden, c.nombre AS nombre_categoria " +
+    
+private static final String SQL_LISTAR_ACTIVAS =
+        "SELECT t.id_tecnologia, t.nombre, " +
+        "       t.icono, c.nombre AS nombre_categoria " +
         "FROM tecnologias t " +
-        "LEFT JOIN categorias c ON t.id_categoria = c.id_categoria " +
-        "WHERE t.estado = 1 " +
-        "ORDER BY t.orden ASC, t.nombre ASC";
+        "LEFT JOIN categorias c ON 1 = 0 " +
+        "ORDER BY t.nombre ASC";
+
 
     private static final String SQL_LISTAR_POR_PROYECTO =
         "SELECT t.id_tecnologia, t.id_categoria, t.nombre, t.descripcion, " +
