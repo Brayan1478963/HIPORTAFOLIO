@@ -20,7 +20,7 @@ INSERT INTO usuarios (nombre, apellido, correo, password_hash, id_rol, estado) V
     'Administrador',
     'Sistema',
     'admin@hiportafolio.com',
-    '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy',
+    'Admin123!',
     1,
     1
 ),
@@ -28,7 +28,7 @@ INSERT INTO usuarios (nombre, apellido, correo, password_hash, id_rol, estado) V
     'Usuario',
     'Demo',
     'usuario@hiportafolio.com',
-    '$2a$10$EblZqNptyYvcLm/VwDptlOuta/VDTS4Wcv3.lXfJ8IKq7.OkPnTjK',
+    'Usuario123!',
     2,
     1
 );
