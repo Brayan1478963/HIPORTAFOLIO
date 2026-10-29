@@ -125,8 +125,26 @@ public final class FileUtil {
      * @param subDirectorio subdirectorio dentro de uploads (ej: "evidencias")
      * @return ruta absoluta del directorio
      */
+    /**
+     * Raíz de almacenamiento. En Render se puede configurar UPLOAD_DIR
+     * apuntando a un disco persistente; si no existe, usa uploads dentro
+     * de la aplicación (almacenamiento local no persistente en despliegues efímeros).
+     */
+    public static String getUploadRoot(String realPath) {
+        String configured = System.getenv("UPLOAD_DIR");
+        if (configured != null && !configured.isBlank()) {
+            return Paths.get(configured).toAbsolutePath().normalize().toString();
+        }
+        if (realPath != null && !realPath.isBlank()) {
+            return Paths.get(realPath, "uploads").toAbsolutePath().normalize().toString();
+        }
+        return Paths.get(System.getProperty("java.io.tmpdir"), "hiportafolio", "uploads")
+                .toAbsolutePath().normalize().toString();
+    }
+
     public static String getRutaUpload(String realPath, String subDirectorio) {
-        return realPath + File.separator + "uploads" + File.separator + subDirectorio + File.separator;
+        return Paths.get(getUploadRoot(realPath), subDirectorio)
+                .toAbsolutePath().normalize().toString() + File.separator;
     }
 
     /**

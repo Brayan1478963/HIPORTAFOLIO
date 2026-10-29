@@ -1,0 +1,28 @@
+CORRECCIÓN DE COMPATIBILIDAD HiPortafolio + Supabase
+=====================================================
+
+IMPORTANTE
+- No ejecutes database/database.sql ni database/schema.sql sobre tu base actual sin revisarlos: contienen DROP TABLE y podrían borrar tablas/datos.
+- La migración segura está en database/fix-supabase-compatibility.sql. Agrega las columnas que los DAO actuales necesitan sin eliminar tablas ni registros.
+
+PASOS
+1. En Supabase abre SQL Editor.
+2. Abre y ejecuta SOLO database/fix-supabase-compatibility.sql.
+3. Reemplaza los archivos del proyecto por los de esta carpeta (o sube este código a GitHub).
+4. En Render, confirma que las variables DB_HOST, DB_PORT, DB_NAME, DB_USER y DB_PASSWORD apunten a Supabase.
+5. Despliega nuevamente y revisa Logs.
+6. En el panel, crea una evidencia adjuntando un archivo. Luego visita /evidencias para comprobar la lista; abre la evidencia y pulsa Ver Archivo.
+
+ARCHIVOS CORREGIDOS
+- ContenidoDAO.java: usa SMALLINT como entero para estado en INSERT/UPDATE.
+- ArchivoDAO.java: inserta los nombres de columnas actuales de Supabase (nombre_guardado, tipo, tamanio) y los alias que necesita el código (nombre_sistema, tipo_mime, tamano).
+- EvidenciaDAO.java: usa estado como entero para PostgreSQL.
+- FileUtil.java y servlets de visualizar/descargar/eliminar: aceptan UPLOAD_DIR como raíz de archivos configurable.
+
+ALMACENAMIENTO EN RENDER
+Si configuras un disco persistente de Render, configura la variable de entorno UPLOAD_DIR con la ruta de montaje del disco, por ejemplo /var/data/uploads (usa exactamente el mount path de tu disco). La aplicación guardará ahí los archivos y los servlets los leerán desde la misma ruta.
+Si NO configuras un disco persistente o almacenamiento externo, los archivos guardados en el filesystem local pueden perderse al redeploy/reiniciar el servicio. La base de datos conservará los metadatos, pero no necesariamente el archivo físico.
+
+COMPILACIÓN
+No pude ejecutar Maven en este entorno porque Maven no está instalado. Antes de desplegar, ejecuta en tu PC:
+    mvn clean package

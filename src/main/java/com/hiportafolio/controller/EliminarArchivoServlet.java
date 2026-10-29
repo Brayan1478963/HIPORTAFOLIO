@@ -3,6 +3,7 @@ package com.hiportafolio.controller;
 import com.hiportafolio.exception.ApplicationException;
 import com.hiportafolio.service.ArchivoService;
 import com.hiportafolio.util.Constants;
+import com.hiportafolio.util.FileUtil;
 import com.hiportafolio.util.ValidationUtil;
 
 import jakarta.servlet.ServletException;
@@ -32,7 +33,7 @@ public class EliminarArchivoServlet extends HttpServlet {
             return;
         }
         try {
-            String uploadRoot = getServletContext().getRealPath("/") + java.io.File.separator;
+            String uploadRoot = FileUtil.getUploadRoot(getServletContext().getRealPath("/")) + java.io.File.separator;
             archivoService.eliminarArchivo(id, uploadRoot);
             resp.sendRedirect(ctx + "/admin/archivos?mensaje=" +
                 java.net.URLEncoder.encode(Constants.MSG_ELIMINADO, "UTF-8"));

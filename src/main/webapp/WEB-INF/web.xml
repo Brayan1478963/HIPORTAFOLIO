@@ -227,6 +227,15 @@
         <url-pattern>/admin/archivos/eliminar</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>TrabajosPublicosServlet</servlet-name>
+        <servlet-class>com.hiportafolio.controller.TrabajosPublicosServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TrabajosPublicosServlet</servlet-name>
+        <url-pattern>/trabajos</url-pattern>
+    </servlet-mapping>
+
     <!-- ================================================
          SERVLETS - PORTAFOLIO PÚBLICO
          ================================================ -->

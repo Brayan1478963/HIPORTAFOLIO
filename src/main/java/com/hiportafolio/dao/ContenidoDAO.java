@@ -116,7 +116,7 @@ public class ContenidoDAO {
             ps.setString(6, c.getReflexion());
             ps.setString(7, c.getReferencias());
             ps.setInt(8,    c.getOrden() > 0 ? c.getOrden() : 1);
-            ps.setBoolean(9, c.isEstado());
+            ps.setInt(9, c.isEstado() ? 1 : 0);
             ps.executeUpdate();
             try (ResultSet keys = ps.getGeneratedKeys()) {
                 if (keys.next()) return keys.getInt(1);
@@ -139,7 +139,7 @@ public class ContenidoDAO {
             ps.setString(6, c.getReflexion());
             ps.setString(7, c.getReferencias());
             ps.setInt(8,    c.getOrden() > 0 ? c.getOrden() : 1);
-            ps.setBoolean(9, c.isEstado());
+            ps.setInt(9, c.isEstado() ? 1 : 0);
             ps.setInt(10,   c.getIdContenido());
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {

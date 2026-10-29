@@ -41,6 +41,7 @@
       <li><a href="${pageContext.request.contextPath}/portafolio?vista=sobre-mi">Sobre mí</a></li>
       <li><a href="${pageContext.request.contextPath}/unidades">Unidades</a></li>
       <li><a href="${pageContext.request.contextPath}/proyectos">Proyectos</a></li>
+      <li><a href="${pageContext.request.contextPath}/trabajos">Trabajos</a></li>
       <li><a href="${pageContext.request.contextPath}/tecnologias">Tecnologías</a></li>
       <li><a href="${pageContext.request.contextPath}/evidencias">Evidencias</a></li>
     </ul>

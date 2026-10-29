@@ -41,8 +41,9 @@ public class ArchivoDAO {
         "WHERE a.id_archivo = ?";
 
     private static final String SQL_INSERTAR =
-        "INSERT INTO archivos (nombre_original, nombre_sistema, ruta, tipo_mime, tamano, id_usuario, estado) " +
-        "VALUES (?, ?, ?, ?, ?, ?, 1)";
+        "INSERT INTO archivos (nombre_original, nombre_guardado, nombre_sistema, ruta, " +
+        "tipo, tipo_mime, tamanio, tamano, id_usuario, estado) " +
+        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1)";
 
     private static final String SQL_ELIMINAR_LOGICO =
         "UPDATE archivos SET estado = 0 WHERE id_archivo = ?";
@@ -86,13 +87,16 @@ public class ArchivoDAO {
                      Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, archivo.getNombreOriginal());
             ps.setString(2, archivo.getNombreSistema());
-            ps.setString(3, archivo.getRuta());
-            ps.setString(4, archivo.getTipoMime());
-            ps.setLong(5,   archivo.getTamano());
+            ps.setString(3, archivo.getNombreSistema());
+            ps.setString(4, archivo.getRuta());
+            ps.setString(5, archivo.getTipoMime());
+            ps.setString(6, archivo.getTipoMime());
+            ps.setLong(7, archivo.getTamano());
+            ps.setLong(8, archivo.getTamano());
             if (archivo.getIdUsuario() > 0) {
-                ps.setInt(6, archivo.getIdUsuario());
+                ps.setInt(9, archivo.getIdUsuario());
             } else {
-                ps.setNull(6, Types.INTEGER);
+                ps.setNull(9, Types.INTEGER);
             }
             ps.executeUpdate();
             try (ResultSet keys = ps.getGeneratedKeys()) {

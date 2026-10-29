@@ -4,6 +4,7 @@ import com.hiportafolio.exception.ApplicationException;
 import com.hiportafolio.model.Archivo;
 import com.hiportafolio.service.ArchivoService;
 import com.hiportafolio.util.Constants;
+import com.hiportafolio.util.FileUtil;
 import com.hiportafolio.util.ValidationUtil;
 
 import jakarta.servlet.ServletException;
@@ -33,8 +34,8 @@ public class VisualizarArchivoServlet extends HttpServlet {
 
         try {
             Archivo archivo = archivoService.buscarPorId(id);
-            String rutaBase = getServletContext().getRealPath("/");
-                Path ruta = Paths.get(rutaBase, "uploads",
+            String rutaBase = FileUtil.getUploadRoot(getServletContext().getRealPath("/"));
+            Path ruta = Paths.get(rutaBase,
                     archivo.getRuta().replace("/", File.separator));
 
             if (!Files.exists(ruta)) { resp.sendError(HttpServletResponse.SC_NOT_FOUND); return; }

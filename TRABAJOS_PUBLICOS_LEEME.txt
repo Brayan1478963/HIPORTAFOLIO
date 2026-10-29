@@ -1,0 +1,16 @@
+CAMBIO: TRABAJOS PUBLICOS EN HIPORTAFOLIO
+
+Se agregó la ruta pública /trabajos para que los visitantes puedan ver y descargar los archivos activos cargados desde el panel administrativo.
+
+USO:
+1. Inicia sesión como ADMIN.
+2. En el panel entra a Gestión de archivos (/admin/archivos).
+3. Sube el PDF, documento, imagen o ZIP.
+4. Cuando el archivo se registre correctamente, los visitantes lo podrán ver en /trabajos.
+5. La página de inicio incluye el enlace Trabajos.
+
+IMPORTANTE PARA RENDER:
+La aplicación guarda los archivos en disco local. En un despliegue con sistema de archivos efímero, los archivos pueden desaparecer tras reinicios o nuevos despliegues aunque los metadatos sigan en Supabase. Para conservarlos, configura un disco persistente en Render y la variable de entorno UPLOAD_DIR apuntando a la ruta montada (por ejemplo /var/data/uploads si esa es la ruta configurada para tu disco). Alternativamente hay que integrar Supabase Storage para almacenamiento duradero.
+
+NOTA:
+No se ha modificado tu base de datos ni creado el usuario administrador. Esta entrega agrega el catálogo público de archivos. La compilación no pudo ejecutarse en este entorno porque Maven no está instalado.

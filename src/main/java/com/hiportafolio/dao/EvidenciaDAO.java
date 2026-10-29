@@ -126,7 +126,7 @@ public class EvidenciaDAO {
             ps.setString(5, ev.getTipo());
             if (ev.getFechaEvidencia() != null) ps.setDate(6, Date.valueOf(ev.getFechaEvidencia()));
             else                                 ps.setNull(6, Types.DATE);
-            ps.setBoolean(7, ev.isEstado());
+            ps.setInt(7, ev.isEstado() ? 1 : 0);
             ps.executeUpdate();
             try (ResultSet keys = ps.getGeneratedKeys()) {
                 if (keys.next()) return keys.getInt(1);
@@ -149,7 +149,7 @@ public class EvidenciaDAO {
             ps.setString(5, ev.getTipo());
             if (ev.getFechaEvidencia() != null) ps.setDate(6, Date.valueOf(ev.getFechaEvidencia()));
             else                                 ps.setNull(6, Types.DATE);
-            ps.setBoolean(7, ev.isEstado());
+            ps.setInt(7, ev.isEstado() ? 1 : 0);
             ps.setInt(8, ev.getIdEvidencia());
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
